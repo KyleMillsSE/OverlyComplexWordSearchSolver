@@ -1,12 +1,13 @@
 ﻿using Akka.Actor;
 using OverlyComplexWordSearchSolver.Actors;
-using OverlyComplexWordSearchSolver.DependencyInjection;
 using OverlyComplexWordSearchSolver.Initialisers;
 using OverlyComplexWordSearchSolver.Initialisers.Memory;
 using OverlyComplexWordSearchSolver.Solving;
 using System;
+using System.ComponentModel;
 using OverlyComplexWordSearchSolver.Runner;
 using Unity;
+using Container = OverlyComplexWordSearchSolver.DependencyInjection.Container;
 
 namespace OverlyComplexWordSearchSolver
 {
@@ -25,7 +26,13 @@ namespace OverlyComplexWordSearchSolver
 
             // Akka components
             Container.Instance.RegisterFactory<ActorSystem>(container => ActorSystem.Create("OverlyComplicatedWordSearchSolverActorSystem"), FactoryLifetime.Singleton);
-            Container.Instance.RegisterFactory<SolvingDelegatorActorProvider>(container => container.Resolve<ActorSystem>().ActorOf(SolvingDelegatorActor.Props()), FactoryLifetime.PerResolve);
+            Container.Instance.RegisterFactory<SolvingDelegatorActorProvider>(container =>
+            {
+                SolvingDelegatorActorProvider provider = () => container.Resolve<ActorSystem>().ActorOf(SolvingDelegatorActor.Props());
+
+                return provider;
+
+            }, FactoryLifetime.PerResolve);
 
 
             // Execute runner
