@@ -25,6 +25,6 @@ namespace OverlyComplexWordSearchSolver.Initialisers.Memory
         public IReadOnlyCollection<string> GetWords() => _searchWords;
 
         /// <inheritdoc/>
-        public IReadOnlyCollection<Position> GetPositions() => _grid.Reverse().Select((characters, y) => characters.Select((cha, x) => new Position(cha, x, y))).Reverse().SelectMany(x => x).ToList();
+        public IReadOnlyCollection<Position> GetPositions() => _grid.Reverse().Select((characters, y) => characters.Select((cha, x) => new Position(cha, x, y))).SelectMany(x => x).ToList();
     }
 }

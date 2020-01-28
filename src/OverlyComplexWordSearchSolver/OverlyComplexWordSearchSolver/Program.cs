@@ -2,10 +2,8 @@
 using OverlyComplexWordSearchSolver.Actors;
 using OverlyComplexWordSearchSolver.Initialisers;
 using OverlyComplexWordSearchSolver.Initialisers.Memory;
-using OverlyComplexWordSearchSolver.Solving;
-using System;
-using System.ComponentModel;
 using OverlyComplexWordSearchSolver.Runner;
+using System;
 using Unity;
 using Container = OverlyComplexWordSearchSolver.DependencyInjection.Container;
 
@@ -22,7 +20,6 @@ namespace OverlyComplexWordSearchSolver
 
             // Solver components
             Container.Instance.RegisterType<IGridInitialiser, FromMemoryGridInitialiser>(TypeLifetime.PerResolve);
-            Container.Instance.RegisterType<ISolverService, SolverService>(TypeLifetime.PerResolve);
 
             // Akka components
             Container.Instance.RegisterFactory<ActorSystem>(container => ActorSystem.Create("OverlyComplicatedWordSearchSolverActorSystem"), FactoryLifetime.Singleton);
