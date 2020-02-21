@@ -16,5 +16,6 @@ namespace OverlyComplexWordSearchSolver.Domain
             X = x;
             Y = y;
         }
+
     }
 }
